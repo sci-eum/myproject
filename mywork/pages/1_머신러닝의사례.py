@@ -14,7 +14,7 @@ st.write("아래 화면에서 직접 개발한 머신러닝 활용 및 문제 �
 
 # 2. reaction.html 파일 경로 설정 및 읽기
 # 팁: reaction.html 파일은 이 파이썬 파일과 같은 위치(pages/) 또는 프로젝트 루트 경로에 있어야 합니다.
-html_file_path = "./htmls/reaction.html" 
+html_file_path = "htmls/reaction.html" 
 
 if os.path.exists(html_file_path):
     with open(html_file_path, "r", encoding="utf-8") as f:
