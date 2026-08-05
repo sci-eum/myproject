@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>원소 반응 탐사대</title>
+  <style>
+    :root{--ink:#17272d;--muted:#65777e;--paper:#fffdf8;--line:#d8dfdc;--teal:#08746e;--mint:#e7f4f1;--coral:#ef694f;--yellow:#f6c84d;--red:#c84737;--shadow:0 20px 60px rgba(20,45,50,.14)}
+    *{box-sizing:border-box}body{margin:0;background:#e9efec;color:var(--ink);font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;line-height:1.55}button{font:inherit;cursor:pointer}.shell{max-width:1080px;margin:auto;padding:24px 18px 50px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:950;letter-spacing:-.04em}.mark{width:40px;height:40px;border:3px solid var(--ink);border-radius:50%;background:var(--yellow);display:grid;place-items:center}.top-actions{display:flex;gap:8px}
+    .btn{border:1px solid var(--line);border-radius:10px;background:white;padding:10px 14px;font-weight:850;color:var(--ink)}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--teal);border-color:var(--teal);color:white}.btn.dark{background:var(--ink);border-color:var(--ink);color:white}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .paper{background:var(--paper);border:1px solid #d9dfdc;box-shadow:var(--shadow);border-radius:6px;overflow:hidden}.stripe{height:12px;background:linear-gradient(90deg,var(--teal) 0 57%,var(--yellow) 57% 79%,var(--coral) 79%)}
+    header{padding:23px 32px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}h1{margin:2px 0 0;font-size:clamp(27px,4vw,40px);letter-spacing:-.06em;line-height:1.1}.eyebrow{font-size:12px;color:var(--teal);font-weight:950;letter-spacing:.11em}.round{border:1px solid var(--teal);color:var(--teal);border-radius:99px;padding:6px 11px;font-weight:900;font-size:13px}.content{padding:26px 32px 34px}
+    .mission{background:var(--mint);border-left:5px solid var(--teal);border-radius:4px 13px 13px 4px;padding:18px 20px}.mission h2{font-size:16px;margin:0 0 4px}.mission p{margin:0;color:var(--muted);font-size:13px}.concept-note,.safety{margin-top:10px;padding:9px 11px;border-radius:8px;font-size:12px;font-weight:750}.concept-note{background:#fff;color:#43565c;border:1px solid #c8d8d4}.safety{background:#fff0ed;color:#9d3428;border-left:4px solid var(--coral)}.equation-prompt{margin-top:16px;background:white;border:2px solid var(--ink);border-radius:13px;padding:19px 14px;text-align:center;font-size:clamp(21px,4vw,31px);font-weight:950;letter-spacing:-.03em}.unknown{display:inline-grid;place-items:center;min-width:76px;padding:4px 13px;margin:0 3px;border:3px dashed var(--coral);border-radius:10px;color:var(--red);background:#fff2ee}.condition{display:block;margin-top:7px;color:var(--muted);font-size:11px;font-weight:750}
+    .step-head{display:flex;align-items:center;gap:11px;margin:24px 0 12px}.step-badge{flex:none;background:var(--ink);color:#fff;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:950}.step-head h2{margin:0;font-size:20px;letter-spacing:-.035em}.step-head p{margin:1px 0 0;color:var(--muted);font-size:12px}.inline-feedback{min-height:22px;margin:10px 0 0;padding:0 3px;color:var(--red);font-size:13px;font-weight:850}.phase-two{margin-top:22px}.phase-two-card{border:2px solid var(--teal);background:#f4fbf9;border-radius:14px;padding:20px}.found-substance{background:#fff;border:1px solid #c7d8d4;border-radius:10px;padding:13px 15px;margin-bottom:15px;color:#43565c}.start-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px 0}.start-info{display:flex;align-items:center;gap:12px}.start-info h3{margin:0;font-size:15px}.start-info p{margin:1px 0 0;font-size:12px;color:var(--muted)}.element-card{position:relative;width:65px;height:70px;border:2px solid var(--teal);border-radius:9px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 5px 0 #bddbd6}.element-card .z{position:absolute;top:3px;left:6px;font-size:10px;color:var(--muted)}.element-card b{font-size:27px;line-height:1}.element-card small{font-size:10px;color:var(--muted)}
+    .builder{display:grid;grid-template-columns:.7fr 1.3fr;gap:16px}.box{border:1px solid var(--line);border-radius:13px;background:white;padding:17px}.box h3{font-size:14px;margin:0 0 4px}.hint{font-size:12px;color:var(--muted);margin:0 0 13px}.palette{display:grid;grid-template-columns:1fr 1fr;gap:8px}.move{border:1.5px solid #b9c5c2;background:#f8faf9;border-radius:10px;padding:10px 5px;font-weight:900;user-select:none}.move b{display:block;color:var(--teal);font-size:24px;line-height:1.1}.move small{font-size:10px;color:var(--muted)}.dropzone{min-height:112px;border:2px dashed #9dadaa;border-radius:11px;padding:10px;display:flex;align-content:flex-start;align-items:flex-start;gap:8px;flex-wrap:wrap;background:#fafbf8}.dropzone.over{border-color:var(--coral);background:#fff2ee}.empty{color:#81908d;font-size:13px;margin:auto}.chip{width:47px;height:55px;border:0;border-radius:9px;background:var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:950;cursor:grab}.chip b{font-size:22px;line-height:1}.chip small{font-size:9px;color:#cbd8d5}.builder-actions{display:flex;justify-content:space-between;gap:8px;margin-top:12px}.builder-actions div{display:flex;gap:7px}.status{font-size:12px;color:var(--muted);align-self:center}.map-note{margin-top:18px;padding:12px 14px;border-radius:10px;background:#f2f4ef;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px}
+    dialog{border:0;border-radius:17px;padding:0;width:min(700px,calc(100% - 24px));box-shadow:0 28px 90px rgba(9,31,36,.3)}dialog::backdrop{background:rgba(15,31,35,.55)}.modal{padding:25px}.modal-head{display:flex;gap:13px;align-items:flex-start}.modal-icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--teal);font-size:20px;font-weight:950;flex:none}.modal-icon.bad{background:#fff0ed;color:var(--red)}.modal h2{margin:0;font-size:22px;letter-spacing:-.04em}.modal p{color:var(--muted);margin:5px 0}.equation{margin:19px 0;background:#f3f5f1;border-radius:12px;padding:18px;text-align:center;font-size:24px;font-weight:950}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+    .periodic{position:relative;display:grid;grid-template-columns:repeat(8,minmax(56px,1fr));grid-template-rows:23px repeat(4,62px);gap:5px;min-width:500px}.table-wrap{overflow:auto;background:#f5f5ef;border:1px solid var(--line);border-radius:12px;padding:13px;margin:18px 0}.group{font-size:10px;font-weight:900;color:var(--muted);text-align:center;align-self:end}.tile{position:relative;z-index:2;border:1.5px solid #93a39f;border-radius:6px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}.tile .z{position:absolute;top:2px;left:5px;font-size:9px;color:var(--muted)}.tile b{font-size:20px}.tile small{font-size:8px;color:var(--muted)}.h-he-path{position:absolute;z-index:1;top:57px;left:6.25%;right:6.25%;height:5px;border-radius:99px;background:var(--coral);box-shadow:0 0 0 3px #f5f5ef}.h-he-path::after{content:"H ↔ He 이동 가능";position:absolute;left:50%;top:-18px;transform:translateX(-50%);background:#fff3ef;color:var(--red);font-size:9px;font-weight:900;padding:2px 6px;border-radius:99px;white-space:nowrap}
+    .molecule-stage{height:250px;background:radial-gradient(circle at 50% 35%,#eef8f6,#d9e8e5 60%,#c9d8d5);border-radius:15px;display:grid;place-items:center;perspective:700px;overflow:hidden;margin-top:18px}.molecule{position:relative;width:300px;height:190px;transform-style:preserve-3d;animation:spin 10s linear infinite}.atom{position:absolute;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:950;font-size:18px;box-shadow:inset -13px -15px 22px rgba(0,0,0,.27),inset 9px 8px 14px rgba(255,255,255,.42),0 12px 18px rgba(25,50,55,.2);z-index:2}.atom.compact{width:48px;height:48px;font-size:12px}.bond{position:absolute;height:10px;background:linear-gradient(#c7d0ce,#73817f,#dfe5e3);transform-origin:left center;border-radius:10px;z-index:1}.bond.resonance{height:6px;background:repeating-linear-gradient(90deg,#788684 0 15px,transparent 15px 24px)}.network-note{position:absolute;inset:20px;display:grid;place-items:center;text-align:center;background:rgba(255,255,255,.72);border:1px dashed #9aaba7;border-radius:13px;padding:24px;color:var(--muted);font-weight:800}@keyframes spin{0%{transform:rotateY(-20deg) rotateX(7deg)}50%{transform:rotateY(20deg) rotateX(-7deg)}100%{transform:rotateY(-20deg) rotateX(7deg)}}.model-caption{text-align:center;font-size:12px;color:var(--muted);margin-top:7px}.coefficient-options{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:13px}.coefficient-options button{border:2px solid #b8cbc7;border-radius:10px;background:#fff;padding:13px;font-size:20px;font-weight:950}.coefficient-options button:hover{border-color:var(--teal);background:var(--mint)}.quiz-feedback{min-height:22px;margin-top:8px!important;font-weight:850}.meta-box{margin-top:12px;padding:11px 13px;border-radius:9px;background:#f3f5f1;font-size:12px;color:var(--muted)}.meta-box strong{color:var(--ink)}
+    .dictionary-content{padding:28px 32px 36px}.dictionary-intro{margin-bottom:23px;display:flex;justify-content:space-between;align-items:center;gap:18px}.dictionary-intro h2{margin:0;font-size:27px;letter-spacing:-.05em}.dictionary-intro p{margin:5px 0 0;color:var(--muted)}.collection-count{flex:none;background:var(--ink);color:white;border-radius:13px;padding:12px 17px;text-align:center}.collection-count strong{display:block;font-size:24px;line-height:1.1;color:var(--yellow)}.collection-count span{font-size:10px;color:#d5e0dd}.compound-list{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.compound-card{border:2px solid #d2d9d6;background:white;border-radius:12px;padding:22px 8px;font-size:22px;font-weight:950}.compound-card:hover{border-color:var(--teal);background:var(--mint)}.empty-dictionary{grid-column:1/-1;color:#899794;font-size:13px;padding:28px 8px;text-align:center;border:1px dashed #bdc7c4;border-radius:10px}
+    @media(max-width:720px){.shell{padding:10px 8px 28px}.top{padding:0 5px}.brand{font-size:17px}header,.content,.dictionary-content{padding-left:18px;padding-right:18px}.round{display:none}.builder{grid-template-columns:1fr}.start-row{align-items:flex-end}.map-note{align-items:flex-start}.periodic{min-width:470px}.molecule-stage{height:220px}.palette{grid-template-columns:repeat(4,1fr)}.move small{display:none}.move{padding:10px 2px}.top-actions .btn{padding:8px 10px;font-size:12px}.compound-list{grid-template-columns:repeat(2,1fr)}.dictionary-intro{align-items:flex-start}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <div class="top"><div class="brand"><span class="mark">⚗</span> 원소 반응 탐사대</div><div class="top-actions"><button class="btn dark" id="dictionaryBtn">물질 사전</button></div></div>
+  <article class="paper" id="gameView">
+    <div class="stripe"></div>
+    <header><div><div class="eyebrow">알고리즘 · 주기율표 · 화학 반응식</div><h1>반응식의 빈칸을 찾아라!</h1></div><div class="round" id="round">MISSION 01</div></header>
+    <div class="content">
+      <section class="mission">
+        <h2>가려진 홑원소 물질은 무엇일까요?</h2>
+        <p>먼저 가려진 반응물을 이루는 원소를 찾고, 이어서 그 반응물의 계수를 맞히세요. 두 단계를 모두 통과해야 정답입니다.</p>
+        <div class="concept-note">주기율표에서는 <strong>물질을 이루는 원소</strong>를 찾습니다. 원소 타일의 기호와 반응식에 들어가는 홑원소 물질의 화학식은 다를 수 있습니다. 예: O 원소 → O₂(g) 홑원소 물질</div>
+        <div class="safety">⚠ 이 앱의 반응식은 학습용이며 실험 지침이 아닙니다. 실제 반응을 직접 따라 하지 마세요.</div>
+        <div class="equation-prompt" id="equationPrompt"></div>
+      </section>
+      <section id="phaseOne">
+        <div class="step-head"><span class="step-badge">1단계</span><div><h2>반응물을 이루는 원소 찾기</h2><p>명령을 조립해 정답 원소로 이동하세요.</p></div></div>
+        <div class="start-row">
+          <div class="start-info"><div class="element-card" id="startCard"></div><div><h3>로봇의 출발 원소</h3><p>로봇은 1~20번 원소 지도 위에서 움직입니다.</p></div></div>
+          <button class="btn" id="newBtn">다른 문항</button>
+        </div>
+        <section class="builder">
+          <div class="box"><h3>이동 명령</h3><p class="hint">끌어 놓거나 눌러서 추가하세요.</p><div class="palette" id="palette"></div></div>
+          <div class="box"><h3>나의 명령 순서</h3><p class="hint">명령끼리 끌어 순서를 바꾸고, 누르면 삭제할 수 있어요.</p><div class="dropzone" id="dropzone"></div><div class="builder-actions"><span class="status" id="status">명령 0개</span><div><button class="btn" id="clearBtn">모두 지우기</button><button class="btn primary" id="runBtn">1단계 정답 확인</button></div></div></div>
+        </section>
+        <p class="inline-feedback" id="phaseOneFeedback" aria-live="polite"></p>
+        <div class="map-note"><span>원소의 위치가 기억나지 않나요? 지도에는 정답이나 이동 경로가 표시되지 않습니다.</span><button class="btn" id="mapBtn">1~20번 원소 지도 보기</button></div>
+      </section>
+      <section class="phase-two" id="phaseTwo" hidden>
+        <div class="step-head"><span class="step-badge">2단계</span><div><h2>반응물의 계수 찾기</h2><p>반응식 양쪽의 원자 수가 같아지도록 계수를 고르세요.</p></div></div>
+        <div class="phase-two-card">
+          <div class="found-substance" id="foundSubstance"></div>
+          <div class="coefficient-options" id="coefficientOptions"></div>
+          <p class="quiz-feedback" id="coefficientFeedback" aria-live="polite"></p>
+          <div class="builder-actions"><span></span><div><button class="btn" id="backToCommands">명령 다시 고치기</button><button class="btn" id="phaseTwoNewBtn">다른 문항</button></div></div>
+        </div>
+      </section>
+    </div>
+  </article>
+  <article class="paper" id="dictionaryView" hidden>
+    <div class="stripe"></div>
+    <header><div><div class="eyebrow">MY PRODUCT COLLECTION</div><h1>물질 사전</h1></div><div class="top-actions"><button class="btn" id="resetCollectionBtn">수집 기록 초기화</button><button class="btn" id="backBtn">문제 풀기로 돌아가기</button></div></header>
+    <div class="dictionary-content">
+      <div class="dictionary-intro"><div><h2>내가 완성한 생성물</h2><p>검증된 반응식의 빈칸을 맞힌 생성물만 모입니다.</p></div><div class="collection-count"><strong id="collectionCount">0 / 0</strong><span>수집한 물질</span></div></div>
+      <div class="compound-list" id="compoundList"></div>
+    </div>
+  </article>
+</main>
+
+<dialog id="mapDialog"><div class="modal"><h2>1~20번 원소 지도</h2><p>3족부터 12족은 생략해 붙였습니다. H와 He 사이도 한 번의 좌우 명령으로 이동할 수 있습니다.</p><div class="table-wrap"><div class="periodic" id="periodic"></div></div><div class="modal-actions"><button class="btn primary" id="closeMap">지도 닫기</button></div></div></dialog>
+<dialog id="resultDialog"><div class="modal"><div class="modal-head"><div class="modal-icon" id="resultIcon">✓</div><div><h2 id="resultTitle"></h2><p id="resultMessage"></p></div></div><div class="equation" id="resultEquation"></div><section id="successDetails"><div class="meta-box" id="resultMeta"></div><div class="safety" id="resultSafety"></div><div class="modal-head" style="margin-top:18px"><div class="modal-icon">3D</div><div><h2 id="modelTitle"></h2><p id="modelText"></p></div></div><div class="molecule-stage"><div class="molecule" id="molecule"></div></div><div class="model-caption" id="modelCaption"></div></section><div class="modal-actions"><button class="btn" id="retryBtn">다시 풀기</button><button class="btn primary" id="nextBtn">다음 문제 풀기</button></div></div></dialog>
+<dialog id="dictionaryDialog"><div class="modal"><div class="modal-head"><div class="modal-icon">3D</div><div><h2 id="dictTitle"></h2><p id="dictText"></p></div></div><div class="equation" id="dictEquation"></div><div class="meta-box" id="dictMeta"></div><div class="safety" id="dictSafety"></div><div class="molecule-stage"><div class="molecule" id="dictMolecule"></div></div><div class="model-caption" id="dictCaption"></div><div class="modal-actions"><button class="btn primary" id="closeDictionaryDetail">사전으로 돌아가기</button></div></div></dialog>
+<dialog id="resetDialog"><div class="modal"><div class="modal-head"><div class="modal-icon bad">!</div><div><h2>수집 기록을 초기화할까요?</h2><p>지금까지 모은 생성물 기록이 모두 삭제되며 되돌릴 수 없습니다.</p></div></div><div class="modal-actions"><button class="btn" id="cancelReset">취소</button><button class="btn dark" id="confirmReset">모두 초기화</button></div></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+const elements=[
+ {z:1,s:"H",n:"수소",r:1,c:1,color:"#f5f5f5",ink:"#24343a"},{z:2,s:"He",n:"헬륨",r:1,c:18,color:"#78c9d5"},
+ {z:3,s:"Li",n:"리튬",r:2,c:1,color:"#9d78c9"},{z:4,s:"Be",n:"베릴륨",r:2,c:2,color:"#77a86b"},{z:5,s:"B",n:"붕소",r:2,c:13,color:"#e49a70"},{z:6,s:"C",n:"탄소",r:2,c:14,color:"#30383c"},{z:7,s:"N",n:"질소",r:2,c:15,color:"#4c71cf"},{z:8,s:"O",n:"산소",r:2,c:16,color:"#e34d45"},{z:9,s:"F",n:"플루오린",r:2,c:17,color:"#83bd52"},{z:10,s:"Ne",n:"네온",r:2,c:18,color:"#6dc4d1"},
+ {z:11,s:"Na",n:"나트륨",r:3,c:1,color:"#916bc4"},{z:12,s:"Mg",n:"마그네슘",r:3,c:2,color:"#6fa268"},{z:13,s:"Al",n:"알루미늄",r:3,c:13,color:"#9aabae"},{z:14,s:"Si",n:"규소",r:3,c:14,color:"#df9a70"},{z:15,s:"P",n:"인",r:3,c:15,color:"#e09d42"},{z:16,s:"S",n:"황",r:3,c:16,color:"#e5bd35"},{z:17,s:"Cl",n:"염소",r:3,c:17,color:"#79b94d"},{z:18,s:"Ar",n:"아르곤",r:3,c:18,color:"#67bdcc"},
+ {z:19,s:"K",n:"칼륨",r:4,c:1,color:"#865db8"},{z:20,s:"Ca",n:"칼슘",r:4,c:2,color:"#659b5f"}
+];
+const products={
+ CO2:{formula:"CO₂",name:"이산화 탄소",atoms:[6,8,8],kind:"molecule",shape:"linear",bondOrders:[2,2],angle:180,caption:"두 C=O 결합은 이중 결합이며, 결합각은 180°입니다."},
+ H2O:{formula:"H₂O",name:"물",atoms:[8,1,1],kind:"molecule",shape:"bent",bondOrders:[1,1],angle:104.5,caption:"두 O–H 결합은 단일 결합이며, H–O–H 결합각은 약 104.5°입니다."},
+ NH3:{formula:"NH₃",name:"암모니아",atoms:[7,1,1,1],kind:"molecule",shape:"pyramidal",bondOrders:[1,1,1],angle:107,caption:"세 N–H 결합은 단일 결합이며, H–N–H 결합각은 약 107°입니다."},
+ HCl:{formula:"HCl",name:"염화 수소",atoms:[1,17],kind:"molecule",shape:"diatomic",bondOrders:[1],angle:null,caption:"H–Cl 단일 결합을 가진 이원자 분자입니다."},
+ HF:{formula:"HF",name:"플루오린화 수소",atoms:[1,9],kind:"molecule",shape:"diatomic",bondOrders:[1],angle:null,caption:"H–F 단일 결합을 가진 이원자 분자입니다."},
+ SO2:{formula:"SO₂",name:"이산화 황",atoms:[16,8,8],kind:"molecule",shape:"bent",bondOrders:[1.5,1.5],angle:119,caption:"공명으로 두 S–O 결합이 동등하며, O–S–O 결합각은 약 119°입니다."},
+ NaCl:{formula:"NaCl",name:"염화 나트륨",ions:[{z:11,count:1,charge:"⁺"},{z:17,count:1,charge:"⁻"}],kind:"ionic",caption:"Na⁺와 Cl⁻의 최소 정수비만 나타낸 화학식 단위 모형입니다. 실제 고체는 반복되는 결정 격자입니다."},
+ KCl:{formula:"KCl",name:"염화 칼륨",ions:[{z:19,count:1,charge:"⁺"},{z:17,count:1,charge:"⁻"}],kind:"ionic",caption:"K⁺와 Cl⁻의 최소 정수비만 나타낸 화학식 단위 모형입니다. 실제 고체는 반복되는 결정 격자입니다."},
+ MgCl2:{formula:"MgCl₂",name:"염화 마그네슘",ions:[{z:12,count:1,charge:"²⁺"},{z:17,count:2,charge:"⁻"}],kind:"ionic",caption:"Mg²⁺ 1개와 Cl⁻ 2개의 최소 정수비 모형이며, 실제 고체는 결정 격자입니다."},
+ CaCl2:{formula:"CaCl₂",name:"염화 칼슘",ions:[{z:20,count:1,charge:"²⁺"},{z:17,count:2,charge:"⁻"}],kind:"ionic",caption:"Ca²⁺ 1개와 Cl⁻ 2개의 최소 정수비 모형이며, 실제 고체는 결정 격자입니다."},
+ MgO:{formula:"MgO",name:"산화 마그네슘",ions:[{z:12,count:1,charge:"²⁺"},{z:8,count:1,charge:"²⁻"}],kind:"ionic",caption:"Mg²⁺와 O²⁻의 최소 정수비 모형이며, 실제 고체는 결정 격자입니다."},
+ CaO:{formula:"CaO",name:"산화 칼슘",ions:[{z:20,count:1,charge:"²⁺"},{z:8,count:1,charge:"²⁻"}],kind:"ionic",caption:"Ca²⁺와 O²⁻의 최소 정수비 모형이며, 실제 고체는 결정 격자입니다."},
+ Al2O3:{formula:"Al₂O₃",name:"산화 알루미늄",ions:[{z:13,count:2,charge:"³⁺"},{z:8,count:3,charge:"²⁻"}],kind:"ionic",caption:"Al³⁺와 O²⁻의 2:3 최소 정수비를 나타낸 모형입니다. 실제 고체는 3차원 결정 구조입니다."},
+ Li3N:{formula:"Li₃N",name:"질화 리튬",ions:[{z:3,count:3,charge:"⁺"},{z:7,count:1,charge:"³⁻"}],kind:"ionic",caption:"Li⁺와 N³⁻의 3:1 최소 정수비를 나타낸 모형입니다. 실제 고체는 결정 격자입니다."},
+ Mg3N2:{formula:"Mg₃N₂",name:"질화 마그네슘",ions:[{z:12,count:3,charge:"²⁺"},{z:7,count:2,charge:"³⁻"}],kind:"ionic",caption:"Mg²⁺와 N³⁻의 3:2 최소 정수비를 나타낸 모형입니다. 실제 고체는 결정 격자입니다."},
+ SiO2:{formula:"SiO₂",name:"이산화 규소",kind:"network",caption:"일반적인 SiO₂ 고체는 독립된 O=Si=O 분자가 아니라 SiO₄ 사면체가 연결된 공유 결합 네트워크입니다."}
+};
+const reactions=[
+ {id:"carbon-combustion",terms:[{coef:1,formula:"C(s)",element:6},{coef:1,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:1,key:"CO2",formula:"CO₂(g)"}],condition:"완전 연소"},
+ {id:"hydrogen-combustion",terms:[{coef:2,formula:"H₂(g)",element:1},{coef:1,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:2,key:"H2O",formula:"H₂O(l)"}],condition:"점화"},
+ {id:"haber",terms:[{coef:1,formula:"N₂(g)",element:7},{coef:3,formula:"H₂(g)",element:1}],arrow:"⇌",products:[{coef:2,key:"NH3",formula:"NH₃(g)"}],condition:"철 촉매, 고온·고압"},
+ {id:"sodium-chloride",terms:[{coef:2,formula:"Na(s)",element:11},{coef:1,formula:"Cl₂(g)",element:17}],arrow:"→",products:[{coef:2,key:"NaCl",formula:"NaCl(s)"}],condition:""},
+ {id:"potassium-chloride",terms:[{coef:2,formula:"K(s)",element:19},{coef:1,formula:"Cl₂(g)",element:17}],arrow:"→",products:[{coef:2,key:"KCl",formula:"KCl(s)"}],condition:""},
+ {id:"magnesium-chloride",terms:[{coef:1,formula:"Mg(s)",element:12},{coef:1,formula:"Cl₂(g)",element:17}],arrow:"→",products:[{coef:1,key:"MgCl2",formula:"MgCl₂(s)"}],condition:""},
+ {id:"calcium-chloride",terms:[{coef:1,formula:"Ca(s)",element:20},{coef:1,formula:"Cl₂(g)",element:17}],arrow:"→",products:[{coef:1,key:"CaCl2",formula:"CaCl₂(s)"}],condition:""},
+ {id:"hydrogen-chloride",terms:[{coef:1,formula:"H₂(g)",element:1},{coef:1,formula:"Cl₂(g)",element:17}],arrow:"→",products:[{coef:2,key:"HCl",formula:"HCl(g)"}],condition:"빛 또는 점화"},
+ {id:"hydrogen-fluoride",terms:[{coef:1,formula:"H₂(g)",element:1},{coef:1,formula:"F₂(g)",element:9}],arrow:"→",products:[{coef:2,key:"HF",formula:"HF(g)"}],condition:""},
+ {id:"magnesium-oxide",terms:[{coef:2,formula:"Mg(s)",element:12},{coef:1,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:2,key:"MgO",formula:"MgO(s)"}],condition:"점화"},
+ {id:"calcium-oxide",terms:[{coef:2,formula:"Ca(s)",element:20},{coef:1,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:2,key:"CaO",formula:"CaO(s)"}],condition:"가열"},
+ {id:"aluminum-oxide",terms:[{coef:4,formula:"Al(s)",element:13},{coef:3,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:2,key:"Al2O3",formula:"Al₂O₃(s)"}],condition:"점화"},
+ {id:"lithium-nitride",terms:[{coef:6,formula:"Li(s)",element:3},{coef:1,formula:"N₂(g)",element:7}],arrow:"→",products:[{coef:2,key:"Li3N",formula:"Li₃N(s)"}],condition:""},
+ {id:"magnesium-nitride",terms:[{coef:3,formula:"Mg(s)",element:12},{coef:1,formula:"N₂(g)",element:7}],arrow:"→",products:[{coef:1,key:"Mg3N2",formula:"Mg₃N₂(s)"}],condition:"가열"},
+ {id:"sulfur-dioxide",terms:[{coef:1,formula:"S₈(s)",element:16},{coef:8,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:8,key:"SO2",formula:"SO₂(g)"}],condition:"연소"},
+ {id:"silicon-dioxide",terms:[{coef:1,formula:"Si(s)",element:14},{coef:1,formula:"O₂(g)",element:8}],arrow:"→",products:[{coef:1,key:"SiO2",formula:"SiO₂(s)"}],condition:"고온"}
+];
+const dirs={R:{icon:"→",label:"같은 주기 오른쪽"},L:{icon:"←",label:"같은 주기 왼쪽"},D:{icon:"↓",label:"같은 족 아래"},U:{icon:"↑",label:"같은 족 위"}};
+const $=q=>document.querySelector(q),element=z=>elements.find(e=>e.z===z),displayCol=c=>c<=2?c:c-10;
+let puzzle,sequence=[],round=0,dragIndex=null;
+function move(e,d){if(d==="R"||d==="L"){const a=elements.filter(x=>x.r===e.r).sort((x,y)=>x.c-y.c),i=a.indexOf(e);return a[i+(d==="R"?1:-1)]||null}const a=elements.filter(x=>x.c===e.c).sort((x,y)=>x.r-y.r),i=a.indexOf(e);return a[i+(d==="D"?1:-1)]||null}
+function trace(start,seq){let cur=start;for(const d of seq){cur=move(cur,d);if(!cur)return null}return cur}
+function shortest(start,target){const q=[[start,[]]],seen=new Set([start.z]);while(q.length){const [cur,path]=q.shift();if(cur.z===target.z)return path;for(const d of Object.keys(dirs)){const n=move(cur,d);if(n&&!seen.has(n.z)){seen.add(n.z);q.push([n,[...path,d]])}}}}
+function cardMarkup(e){return `<span class="z">${e.z}</span><b>${e.s}</b><small>${e.n}</small>`}
+function safetyFor(r){
+ const special={
+  "hydrogen-fluoride":"수소와 플루오린의 반응은 매우 격렬하고 위험합니다. 절대 직접 실험하지 마세요.",
+  "hydrogen-chloride":"수소와 염소의 혼합물은 빛이나 점화에 의해 폭발적으로 반응할 수 있습니다. 직접 실험하지 마세요.",
+  "sodium-chloride":"나트륨과 염소의 반응은 매우 격렬합니다. 직접 실험하지 마세요.",
+  "potassium-chloride":"칼륨과 염소의 반응은 매우 격렬합니다. 직접 실험하지 마세요.",
+  "magnesium-oxide":"타는 마그네슘은 매우 밝은 빛을 냅니다. 보호 장비와 교사의 감독 없이 실험하지 마세요."
+ };
+ return special[r.id]||"학습을 위해 단순화해 제시한 반응식입니다. 실제 실험 절차로 사용하지 마세요.";
+}
+function productCatalog(){const map=new Map();for(const r of reactions)for(const p of r.products)if(!map.has(p.key))map.set(p.key,{...products[p.key],key:p.key,equation:fullEquation(r),condition:r.condition||"별도 조건을 표시하지 않음",safety:safetyFor(r)});return[...map.values()]}
+function newPuzzle(){
+ round++;const unlocked=new Set(getUnlocked()),unseen=productCatalog().filter(p=>!unlocked.has(p.key)),pool=unseen.length?unseen:productCatalog(),goal=pool[Math.floor(Math.random()*pool.length)];
+ const candidates=reactions.filter(r=>r.products.some(p=>p.key===goal.key)&&r.terms.some(t=>t.coef<=4)),reaction=candidates[Math.floor(Math.random()*candidates.length)],eligible=reaction.terms.map((t,i)=>t.coef<=4?i:-1).filter(i=>i>=0),hiddenIndex=eligible[Math.floor(Math.random()*eligible.length)],target=element(reaction.terms[hiddenIndex].element);
+ const starts=elements.filter(e=>e.z!==target.z).filter(e=>{const p=shortest(e,target);return p&&p.length>=2&&p.length<=5}),start=starts[Math.floor(Math.random()*starts.length)];
+ puzzle={reaction,hiddenIndex,target,start,product:goal};sequence=[];render();window.scrollTo({top:0,behavior:"smooth"});
+}
+function termText(t,showOne=false){return `${t.coef===1&&!showOne?"":t.coef}${t.formula}`}
+function fullEquation(r){return `${r.terms.map(t=>termText(t)).join(" + ")} ${r.arrow} ${r.products.map(p=>`${p.coef===1?"":p.coef}${p.formula}`).join(" + ")}`}
+function promptEquation(r,hidden,revealFormula=false){return `${r.terms.map((t,i)=>i===hidden?(revealFormula?`<span class="unknown">? ${t.formula}</span>`:`<span class="unknown">?</span>`):termText(t)).join(" + ")} ${r.arrow} ${r.products.map(p=>`${p.coef===1?"":p.coef}${p.formula}`).join(" + ")}${r.condition?`<span class="condition">반응 조건: ${r.condition}</span>`:""}`}
+function render(){
+ $("#phaseOne").hidden=false;$("#phaseTwo").hidden=true;$("#phaseOneFeedback").textContent="";$("#equationPrompt").innerHTML=promptEquation(puzzle.reaction,puzzle.hiddenIndex);$("#startCard").innerHTML=cardMarkup(puzzle.start);$("#round").textContent=`MISSION ${String(round).padStart(2,"0")}`;
+ $("#palette").innerHTML=Object.entries(dirs).map(([k,v])=>`<button class="move" draggable="true" data-dir="${k}"><b>${v.icon}</b><small>${v.label}</small></button>`).join("");renderSequence();
+ document.querySelectorAll(".move").forEach(b=>{b.onclick=()=>addCommand(b.dataset.dir);b.ondragstart=e=>e.dataTransfer.setData("text/plain",b.dataset.dir)});
+}
+function renderSequence(){$("#dropzone").innerHTML=sequence.length?sequence.map((d,i)=>`<button class="chip" draggable="true" data-i="${i}" title="눌러서 삭제"><b>${dirs[d].icon}</b><small>${i+1}번째</small></button>`).join(""):`<span class="empty">명령을 이곳에 끌어 놓으세요</span>`;$("#status").textContent=`명령 ${sequence.length}개`;$("#runBtn").disabled=!sequence.length;document.querySelectorAll(".chip").forEach(b=>{b.onclick=()=>{sequence.splice(+b.dataset.i,1);renderSequence()};b.ondragstart=e=>{dragIndex=+b.dataset.i;e.dataTransfer.setData("text/reorder",String(dragIndex))}})}
+function addCommand(d){if(sequence.length>=8){toast("명령은 최대 8개까지 만들 수 있어요.");return}sequence.push(d);renderSequence()}
+const zone=$("#dropzone");zone.ondragover=e=>{e.preventDefault();zone.classList.add("over")};zone.ondragleave=()=>zone.classList.remove("over");zone.ondrop=e=>{e.preventDefault();zone.classList.remove("over");const reorder=e.dataTransfer.getData("text/reorder"),d=e.dataTransfer.getData("text/plain");if(reorder!==""){const item=sequence.splice(+reorder,1)[0];sequence.push(item);renderSequence()}else if(d)addCommand(d)};
+$("#clearBtn").onclick=()=>{sequence=[];renderSequence()};$("#newBtn").onclick=newPuzzle;
+$("#runBtn").onclick=()=>{
+ const dest=trace(puzzle.start,sequence),feedback=$("#phaseOneFeedback");
+ if(!dest){feedback.textContent="주기율표의 끝을 벗어나는 명령이 있습니다. 명령 순서를 다시 살펴보세요.";return}
+ if(dest.z!==puzzle.target.z){feedback.textContent=`도착한 ${dest.s}는 정답 원소가 아닙니다. 반응식과 명령 순서를 다시 살펴보세요.`;return}
+ const term=puzzle.reaction.terms[puzzle.hiddenIndex];feedback.textContent="";$("#phaseOne").hidden=true;$("#phaseTwo").hidden=false;$("#equationPrompt").innerHTML=promptEquation(puzzle.reaction,puzzle.hiddenIndex,true);$("#foundSubstance").innerHTML=`<strong>1단계 완료</strong> · ${puzzle.target.n}(${puzzle.target.s}) 원소를 찾았습니다.<br>반응식에 들어갈 홑원소 물질은 <strong>${term.formula}</strong>입니다. 이제 이 물질 앞의 계수를 고르세요.`;$("#coefficientFeedback").textContent="";$("#coefficientOptions").innerHTML=[1,2,3,4].map(n=>`<button data-coef="${n}">${n}</button>`).join("");document.querySelectorAll("#coefficientOptions button").forEach(b=>b.onclick=()=>checkCoefficient(+b.dataset.coef));$("#phaseTwo").scrollIntoView({behavior:"smooth",block:"start"});
+};
+function checkCoefficient(answer){
+ const term=puzzle.reaction.terms[puzzle.hiddenIndex];
+ if(answer!==term.coef){$("#coefficientFeedback").textContent=`${answer}은(는) 맞지 않아요. 반응식 양쪽에서 각 원소의 원자 수를 다시 세어 보세요.`;$("#coefficientFeedback").style.color="var(--red)";return}
+ unlockProduct(puzzle.product.key);$("#resultIcon").className="modal-icon";$("#resultIcon").textContent="✓";$("#resultTitle").textContent="정답! 두 단계를 모두 해결했어요";$("#resultMessage").textContent=`${puzzle.target.s} 원소로 이루어진 ${term.formula}의 계수는 ${term.coef}입니다.`;$("#resultEquation").textContent=fullEquation(puzzle.reaction);$("#resultMeta").innerHTML=`<strong>반응 조건</strong> · ${puzzle.reaction.condition||"별도 조건을 표시하지 않음"}`;$("#resultSafety").textContent=`⚠ ${safetyFor(puzzle.reaction)}`;$("#modelTitle").textContent=`생성물 ${puzzle.product.formula}`;$("#modelText").textContent=puzzle.product.name;renderModel($("#molecule"),puzzle.product);$("#modelCaption").textContent=`${puzzle.product.caption} 대표 결합각을 반영한 단순화 모형입니다.`;$("#resultDialog").showModal();
+}
+$("#backToCommands").onclick=()=>{$("#phaseTwo").hidden=true;$("#phaseOne").hidden=false;$("#equationPrompt").innerHTML=promptEquation(puzzle.reaction,puzzle.hiddenIndex);$("#phaseOneFeedback").textContent="명령을 다시 고쳐 보세요.";$("#phaseOne").scrollIntoView({behavior:"smooth",block:"start"})};
+$("#phaseTwoNewBtn").onclick=newPuzzle;
+$("#retryBtn").onclick=()=>{$("#resultDialog").close();sequence=[];render()};$("#nextBtn").onclick=()=>{$("#resultDialog").close();newPuzzle()};
+function renderModel(container,p){
+ container.style.animation=p.kind==="network"?"none":"spin 10s linear infinite";
+ if(p.kind==="network"){container.innerHTML=`<div class="network-note">SiO₂(s)는 독립된 삼원자 분자가 아닙니다.<br>SiO₄ 사면체가 산소를 공유하며 이어지는 네트워크 고체입니다.</div>`;return}
+ if(p.kind==="ionic"){const ions=[];for(const x of p.ions)for(let i=0;i<x.count;i++)ions.push({e:element(x.z),charge:x.charge});const pos=unitPositions(ions.length);container.innerHTML=ions.map((x,i)=>atomHTML(x.e,pos[i],true,x.charge)).join("");return}
+ const center=element(p.atoms[0]),outer=p.atoms.slice(1).map(element),pos=shapePositions(p.shape,outer.length,p.angle);let html=atomHTML(center,{x:150,y:95,z:0});outer.forEach((e,i)=>{html+=bondHTML({x:150,y:95},pos[i],p.bondOrders?.[i]||1)+atomHTML(e,pos[i])});container.innerHTML=html;
+}
+function atomHTML(e,p,compact=false,charge=""){return `<div class="atom${compact?" compact":""}" style="left:${p.x-(compact?24:35)}px;top:${p.y-(compact?24:35)}px;transform:translateZ(${p.z||0}px);background:${e.color};color:${e.ink||"white"}">${e.s}${charge}</div>`}
+function bondHTML(a,b,order=1){
+ const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),ang=Math.atan2(dy,dx)*180/Math.PI,base=`left:${a.x}px;width:${len}px;transform:rotate(${ang}deg)`;
+ if(order===2)return `<span class="bond" style="${base};top:${a.y-10}px;height:7px"></span><span class="bond" style="${base};top:${a.y+3}px;height:7px"></span>`;
+ if(order===1.5)return `<span class="bond" style="${base};top:${a.y-8}px;height:7px"></span><span class="bond resonance" style="${base};top:${a.y+3}px"></span>`;
+ return `<span class="bond" style="${base};top:${a.y-5}px"></span>`;
+}
+function shapePositions(shape,count,angle){
+ if(shape==="diatomic")return[{x:225,y:95,z:0}];
+ if(shape==="linear")return[{x:50,y:95,z:0},{x:250,y:95,z:0}].slice(0,count);
+ if(shape==="bent"){const half=(angle||105)*Math.PI/360,r=105;return[{x:150-r*Math.sin(half),y:95-r*Math.cos(half),z:12},{x:150+r*Math.sin(half),y:95-r*Math.cos(half),z:-12}].slice(0,count)}
+ if(shape==="pyramidal")return[{x:150,y:20,z:-24},{x:65,y:145,z:24},{x:235,y:145,z:24}].slice(0,count);
+ return[{x:150,y:15,z:-24},{x:55,y:85,z:20},{x:100,y:165,z:-8},{x:245,y:135,z:24}].slice(0,count)
+}
+function unitPositions(n){const sets={2:[{x:105,y:95,z:18},{x:195,y:95,z:-10}],3:[{x:150,y:35,z:-12},{x:85,y:140,z:18},{x:215,y:140,z:5}],4:[{x:90,y:55,z:-12},{x:210,y:55,z:18},{x:90,y:140,z:18},{x:210,y:140,z:-12}],5:[{x:150,y:25,z:-15},{x:70,y:85,z:15},{x:230,y:85,z:15},{x:100,y:155,z:-5},{x:200,y:155,z:18}]};return sets[n]}
+function tableMarkup(){const heads=[1,2,13,14,15,16,17,18].map((g,i)=>`<div class="group" style="grid-row:1;grid-column:${i+1}">${g}족</div>`).join("");return `<div class="h-he-path"></div>`+heads+elements.map(e=>`<div class="tile" style="grid-row:${e.r+1};grid-column:${displayCol(e.c)}">${cardMarkup(e)}</div>`).join("")}
+const mapDialog=$("#mapDialog");$("#mapBtn").onclick=()=>{$("#periodic").innerHTML=tableMarkup();mapDialog.showModal()};$("#closeMap").onclick=()=>mapDialog.close();mapDialog.onclick=e=>{if(e.target===mapDialog)mapDialog.close()};
+const collectionKey="reaction-product-collection-v1";function getUnlocked(){try{return JSON.parse(localStorage.getItem(collectionKey)||"[]")}catch{return[]}}function unlockProduct(key){const a=getUnlocked();if(!a.includes(key)){a.push(key);try{localStorage.setItem(collectionKey,JSON.stringify(a))}catch{}}}
+function renderDictionary(){const unlocked=new Set(getUnlocked()),catalog=productCatalog(),found=catalog.filter(p=>unlocked.has(p.key));$("#collectionCount").textContent=`${found.length} / ${catalog.length}`;$("#compoundList").innerHTML=found.length?found.map(p=>`<button class="compound-card" data-key="${p.key}">${p.formula}</button>`).join(""):`<div class="empty-dictionary">아직 완성한 생성물이 없습니다.</div>`;document.querySelectorAll(".compound-card").forEach(b=>b.onclick=()=>openProduct(b.dataset.key))}
+function showDictionary(){renderDictionary();$("#gameView").hidden=true;$("#dictionaryView").hidden=false;$("#dictionaryBtn").hidden=true;window.scrollTo({top:0})}function showGame(){$("#dictionaryView").hidden=true;$("#gameView").hidden=false;$("#dictionaryBtn").hidden=false;window.scrollTo({top:0})}$("#dictionaryBtn").onclick=showDictionary;$("#backBtn").onclick=showGame;
+const dictionaryDialog=$("#dictionaryDialog");function openProduct(key){const p=productCatalog().find(x=>x.key===key);$("#dictTitle").textContent=p.formula;$("#dictText").textContent=p.name;$("#dictEquation").textContent=p.equation;$("#dictMeta").innerHTML=`<strong>반응 조건</strong> · ${p.condition}`;$("#dictSafety").textContent=`⚠ ${p.safety}`;renderModel($("#dictMolecule"),p);$("#dictCaption").textContent=`${p.caption} 대표 결합각을 반영한 단순화 모형입니다.`;dictionaryDialog.showModal()}$("#closeDictionaryDetail").onclick=()=>dictionaryDialog.close();dictionaryDialog.onclick=e=>{if(e.target===dictionaryDialog)dictionaryDialog.close()};
+const resetDialog=$("#resetDialog");$("#resetCollectionBtn").onclick=()=>resetDialog.showModal();$("#cancelReset").onclick=()=>resetDialog.close();$("#confirmReset").onclick=()=>{try{localStorage.removeItem(collectionKey)}catch{}resetDialog.close();renderDictionary();toast("물질 사전의 수집 기록을 초기화했습니다.")};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+newPuzzle();
+</script>
+</body>
+</html>
